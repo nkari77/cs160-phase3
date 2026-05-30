@@ -25,16 +25,17 @@ int main(int argc, char* argv[]) {
     if (argc >= 2) N = stoi(argv[1]);
 
     // pre-load (not timed)
-    Graph g = load_initial("initial.txt");
+    uint32_t maxv = find_max_vertex("initial.txt", "updates.txt");
+    Graph g = load_initial("initial.txt", maxv);
 
     vector<AddRequest> adds;
     vector<Delay>      delays;
     parse_updates("updates.txt", adds, delays);
 
-    cout << "vertices: "  << g.adj.size()   << endl;
-    cout << "updates:  "  << adds.size()    << endl;
-    cout << "delays:   "  << delays.size()  << endl;
-    cout << "consumers: " << N              << endl;
+    cout << "vertices: "  << g.adj.size()  << endl;
+    cout << "updates:  "  << adds.size()   << endl;
+    cout << "delays:   "  << delays.size() << endl;
+    cout << "consumers: " << N             << endl;
 
     ConcurrentQueue<AddRequest> cq;
 
